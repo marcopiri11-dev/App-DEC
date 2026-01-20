@@ -24,6 +24,7 @@ export interface ErrorEvent {
 export interface Student {
   id: string;
   name: string;
+  phoneNumber?: string; // Numero per WhatsApp
   licenseType: 'B' | 'A' | 'C';
   totalHours: number;
   avatarUrl: string;
