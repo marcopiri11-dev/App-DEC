@@ -1,0 +1,22 @@
+
+{
+  "name": "Metodo DEC",
+  "short_name": "Metodo DEC",
+  "description": "Formazione alla guida evoluta",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "https://api.dicebear.com/7.x/initials/svg?seed=DEC&backgroundColor=3b82f6",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "https://api.dicebear.com/7.x/initials/svg?seed=DEC&backgroundColor=3b82f6",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

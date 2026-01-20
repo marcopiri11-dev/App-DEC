@@ -1,0 +1,8 @@
+{
+  "name": "Schede guida",
+  "description": "Applicazione professionale per istruttori di guida per valutare gli allievi utilizzando un sistema a semaforo (Verde, Giallo, Rosso) con feedback generato dall'IA.",
+  "requestFramePermissions": [
+    "geolocation",
+    "microphone"
+  ]
+}
