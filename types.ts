@@ -101,6 +101,7 @@ export const EVALUATION_CATEGORIES: EvaluationCategory[] = [
       { id: 'gear_seq_down', label: '5-4-3-2-1' },
       { id: 'gear_flat', label: 'Pianura' },
       { id: 'gear_uphill', label: 'Salita' },
+      { id: 'gear_downhill', label: 'Discesa' },
     ]
   },
   {
@@ -122,6 +123,12 @@ export const EVALUATION_CATEGORIES: EvaluationCategory[] = [
       { id: 'm2_sv_sx', label: 'SV SX' },
       { id: 'm2_rotatories', label: 'Rotatorie' },
       { id: 'm2_highway', label: 'Autostrada' },
+      { id: 'm2_park_pettine_dx', label: 'Parcheggio a pettine dx' },
+      { id: 'm2_park_pettine_sx', label: 'Parcheggio a pettine sx' },
+      { id: 'm2_reverse_straight', label: 'Retromarcia dritta' },
+      { id: 'm2_u_turn', label: 'Inversione a U' },
+      { id: 'm2_park_line_dx', label: 'Parcheggio in linea dx' },
+      { id: 'm2_park_line_sx', label: 'Parcheggio in linea sx' },
       { id: 'm2_signs', label: 'Lettura Segnaletica' },
     ]
   },
@@ -133,6 +140,8 @@ export const EVALUATION_CATEGORIES: EvaluationCategory[] = [
       { id: 'zone_bolza', label: 'Bolzaneto' },
       { id: 'zone_sampi', label: 'Sampierdarena' },
       { id: 'zone_nervi', label: 'Nervi-Quarto' },
+      { id: 'zone_sestri_erzelli', label: 'Sestri P.-Erzelli' },
+      { id: 'zone_recco', label: 'Recco' },
     ]
   }
 ];
