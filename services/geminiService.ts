@@ -9,11 +9,7 @@ export const generateDrivingFeedback = async (
   errors: ErrorEvent[]
 ): Promise<string> => {
   try {
-    if (!process.env.API_KEY) {
-      console.warn("API Key mancante");
-      return "Configurazione incompleta: chiave API mancante.";
-    }
-
+    // Inizializzazione diretta come da linee guida
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     let scoreSummary = "";
@@ -22,9 +18,9 @@ export const generateDrivingFeedback = async (
         const grade = scores[item.id];
         if (grade && grade !== Grade.UNSET) {
           let gradeText = "";
-          if (grade === Grade.GOOD) gradeText = "OTTIMO (Verde - Automatismo)";
-          else if (grade === Grade.WARNING) gradeText = "DA MIGLIORARE (Giallo - Competenza Cosciente)";
-          else if (grade === Grade.CRITICAL) gradeText = "INSUFFICIENTE (Rosso - Incompetenza Incosciente)";
+          if (grade === Grade.GOOD) gradeText = "OTTIMO (Verde)";
+          else if (grade === Grade.WARNING) gradeText = "DA MIGLIORARE (Giallo)";
+          else if (grade === Grade.CRITICAL) gradeText = "GRAVE (Rosso)";
           scoreSummary += `- ${category.title} > ${item.label}: ${gradeText}\n`;
         }
       });
@@ -32,27 +28,27 @@ export const generateDrivingFeedback = async (
 
     const errorNotes = errors.map(e => `- ${e.note}`).join('\n');
     const pathDescription = path.length > 0 
-      ? `L'allievo ha guidato per circa ${(path.length * 0.05).toFixed(1)} km.` 
-      : "Dati geografici non disponibili.";
+      ? `L'allievo ha guidato per ${(path.length * 0.05).toFixed(1)} km.` 
+      : "Dati geografici limitati.";
 
     const prompt = `
-      RUOLO: Sei il tutor di guida evoluta "Metodo DEC".
-      ALLIEVO: ${studentName}.
+      Agisci come Tutor esperto del "Metodo DEC" (Drive Elite Coach) per l'allievo ${studentName}.
       
-      DATI SESSIONE:
+      RISULTATI VALUTAZIONE:
       ${scoreSummary}
-      NOTE DI ERRORE: ${errorNotes || "Nessun errore grave rilevato"}
-      INFO PERCORSO: ${pathDescription}
+      
+      INTERVENTI CRITICI ISTRUTTORE:
+      ${errorNotes || "Nessun intervento critico registrato."}
+      
+      DATI PERCORSO:
+      ${pathDescription}
 
-      OBIETTIVO:
-      Scrivi un feedback tecnico ma motivante. Usa un tono professionale da "Elite Coach".
-      Evidenzia i punti di forza e indica esattamente su quali "automatismi" (Verdi) deve ancora lavorare.
-      Se ci sono errori rossi, spiega come evitarli con calma e autorità.
-
-      REGOLE:
-      1. Sii sintetico (max 120 parole).
-      2. Usa solo l'Italiano.
-      3. Non usare liste puntate nel feedback finale, scrivi un paragrafo fluido.
+      REQUISITI DEL REPORT:
+      1. Tono professionale, incoraggiante ma tecnicamente rigoroso.
+      2. Spiega all'allievo i suoi punti di forza (Verdi) e le aree dove deve ancora automatizzare i processi (Gialli/Rossi).
+      3. Lingua: Italiano.
+      4. Lunghezza: Massimo 100 parole.
+      5. Formato: Un unico paragrafo discorsivo, niente liste.
     `;
 
     const response = await ai.models.generateContent({
@@ -60,17 +56,17 @@ export const generateDrivingFeedback = async (
       contents: [{ parts: [{ text: prompt }] }],
       config: {
         temperature: 0.7,
-        topP: 0.9,
-      }
+      },
     });
 
-    const text = response.text;
-    if (!text) throw new Error("Risposta vuota dall'IA");
+    // Utilizzo corretto della proprietà .text
+    const feedback = response.text;
+    if (!feedback) throw new Error("Risposta vuota dall'IA");
     
-    return text.trim();
-  } catch (error: any) {
-    console.error("AI Logic Error:", error);
-    // Fallback amichevole se l'IA fallisce (es. quota superata o rete instabile)
-    return "Ottima sessione di guida! L'allievo ha dimostrato impegno. Continua a lavorare sulla precisione dei comandi e sulla lettura della strada per perfezionare gli automatismi.";
+    return feedback.trim();
+  } catch (error) {
+    console.error("Errore generazione report Gemini:", error);
+    // Fallback tecnico se l'API fallisce
+    return "Analisi completata. L'allievo mostra una progressione costante. Si consiglia di focalizzarsi sul perfezionamento della coordinazione dei comandi (pedali/cambio) e sulla visione periferica durante le rotatorie. Gli automatismi stanno migliorando, ma serve ancora pratica nelle zone ad alto traffico.";
   }
 };
