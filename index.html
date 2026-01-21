@@ -15,10 +15,12 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0a0a0a">
     
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/initials/svg?seed=DEC&backgroundColor=3b82f6">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     
-    <!-- Polyfill per compatibilità browser meno recenti (es. iOS < 16.4) -->
     <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.1/dist/es-module-shims.js"></script>
 
     <style>
@@ -37,7 +39,6 @@
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
       .loader-spin { animation: spin 1s linear infinite; }
       
-      /* Messaggio di errore d'emergenza */
       #mobile-panic-button {
         display: none;
         position: fixed;
@@ -68,7 +69,6 @@
 </script>
 
     <script>
-      // Cattura errori all'avvio per aiutare l'utente se l'app non parte
       window.onerror = function(msg, url, line) {
         const panic = document.getElementById('mobile-panic-button');
         if (panic) {
