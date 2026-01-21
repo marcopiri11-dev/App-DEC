@@ -6,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Metodo DEC - Formazione alla guida evoluta</title>
     
+    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     
-    <!-- PWA Meta Tags -->
+    <!-- iOS Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Metodo DEC">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#0a0a0a">
     
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/initials/svg?seed=DEC&backgroundColor=3b82f6">
+    
+    <meta name="theme-color" content="#0a0a0a">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -69,11 +70,12 @@
 </script>
 
     <script>
+      // Gestione errori di caricamento per debug su mobile
       window.onerror = function(msg, url, line) {
         const panic = document.getElementById('mobile-panic-button');
         if (panic) {
           panic.style.display = 'block';
-          panic.innerHTML = '⚠️ Errore di caricamento: ' + msg + '<br><small>Prova ad aggiornare la pagina o usa Chrome/Safari aggiornato.</small>';
+          panic.innerHTML = '⚠️ Errore all\'avvio: ' + msg + '<br><small>Tocca qui per ricaricare.</small>';
         }
         return false;
       };
